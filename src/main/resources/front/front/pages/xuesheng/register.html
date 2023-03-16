@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>注册</title>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+	    <link rel="stylesheet" type="text/css" href="../../xznstatic/css/public.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../xznstatic/css/login.css"/>
+	    <style type="text/css">
+			.register {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			    width: 100%;
+			    height: 100%;
+				background-attachment: fixed;
+				background-size: cover;
+				background-position: center;
+								background-image: url(http://codegen.caihongy.cn/20210309/382cea8e8a3e472999229f759d2e8ba8.jpg);
+							}
+			.register form {
+				box-sizing: border-box;
+				min-height: 400px;
+				display: flex;
+				flex-direction: column;
+				justify-content: center !important;
+			}
+			.register .logo, .register .title {
+				box-sizing: border-box;
+			}
+			.register .logo img {
+				display: block;
+			}
+			.register .title {
+				text-align: center;
+			}
+			.register .form-item {
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+				box-sizing: border-box;
+			}
+			.register .form-item input, .register .form-label {
+				box-sizing: border-box;
+			}
+			.register .btn-submit {
+				display: block;
+				box-sizing: border-box;
+			}
+			.register form p.txt {
+				width: 100%;
+				margin: 0;
+				box-sizing: border-box;
+			}
+	    </style>
+	</head>
+	<body>
+		<div class="register" id="app">
+			<form class="layui-form login-form" :style='{"padding":"20px","boxShadow":"0 0 0px rgba(255,0,0,.8)","borderColor":"rgba(255, 255, 255, 0.3)","backgroundColor":"rgba(84, 78, 78, 1)","borderRadius":"20px","borderWidth":"2px","width":"400px","borderStyle":"solid","justifyContent":"center","height":"auto"}'>
+				<h1 class="logo" v-if="false" :style='{"padding":"5px 0","boxShadow":"0 0 6px rgba(255,0,0,.8)","borderColor":"rgba(0,0,0,.3)","backgroundColor":"#fff","borderRadius":"6px","borderWidth":"0","borderStyle":"solid"}'><img :style='{"boxShadow":"0 0 6px rgba(255,0,0,.8)","margin":"0 auto","borderColor":"rgba(0,0,0,.3)","borderRadius":"100%","borderWidth":"1px","width":"44px","borderStyle":"solid","height":"44px"}' src="http://codegen.caihongy.cn/20201024/ed5e326ca66f403aa3197b5fbb4ec733.jpg"></h1>
+            	<p class="title" v-if="true" :style='{"padding":"0 10px","boxShadow":"0 0 0px rgba(255,0,0,.8)","margin":"10px auto","borderColor":"rgba(255, 255, 255, 1)","backgroundColor":"rgba(248, 248, 248, 1)","color":"rgba(153, 204, 0, 1)","isshow":true,"borderRadius":"8px","borderWidth":"2px","width":"auto","lineHeight":"42px","fontSize":"16px","borderStyle":"solid"}'>学生注册</p>		
+				<div :style='{"padding":"0","boxShadow":"0 0 6px rgba(255,0,0,0)","margin":"0 auto","borderColor":"rgba(160, 133, 133, 1)","backgroundColor":"rgba(204, 187, 187, 1)","borderRadius":"20px","borderWidth":"0 0 1px 0","width":"80%","borderStyle":"solid","height":"64px"}' class="form-item layui-form-text">
+					<label v-if="true" :style='{"padding":"0 10px","boxShadow":"0 0 0px rgba(255,0,0,0)","borderColor":"rgba(0,0,0,0)","backgroundColor":"transparent","color":"#333","borderRadius":"0","textAlign":"right","borderWidth":"0","width":"84px","fontSize":"16px","borderStyle":"solid"}' class="form-label">学生号：</label>
+					<input :style='{"padding":"0 10px","boxShadow":"0 0 6px rgba(0,0,0,.5)","borderColor":"#ccc","backgroundColor":"#fff","color":"#333","borderRadius":"8px","textAlign":"left","borderWidth":"0","width":"180px","fontSize":"14px","borderStyle":"solid","height":"44px"}' type="text" id="xueshenghao" name="xueshenghao" placeholder="请输入学生号" autocomplete="off" class="layui-input">
+				</div>
+				<div :style='{"padding":"0","boxShadow":"0 0 6px rgba(255,0,0,0)","margin":"0 auto","borderColor":"rgba(160, 133, 133, 1)","backgroundColor":"rgba(204, 187, 187, 1)","borderRadius":"20px","borderWidth":"0 0 1px 0","width":"80%","borderStyle":"solid","height":"64px"}' class="form-item">
+					<label v-if="true" :style='{"padding":"0 10px","boxShadow":"0 0 0px rgba(255,0,0,0)","borderColor":"rgba(0,0,0,0)","backgroundColor":"transparent","color":"#333","borderRadius":"0","textAlign":"right","borderWidth":"0","width":"84px","fontSize":"16px","borderStyle":"solid"}' class="form-label">密码：</label>
+					<input :style='{"padding":"0 10px","boxShadow":"0 0 6px rgba(0,0,0,.5)","borderColor":"#ccc","backgroundColor":"#fff","color":"#333","borderRadius":"8px","textAlign":"left","borderWidth":"0","width":"180px","fontSize":"14px","borderStyle":"solid","height":"44px"}' type="password" name="mima" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+				</div>
+				<div :style='{"padding":"0","boxShadow":"0 0 6px rgba(255,0,0,0)","margin":"0 auto","borderColor":"rgba(160, 133, 133, 1)","backgroundColor":"rgba(204, 187, 187, 1)","borderRadius":"20px","borderWidth":"0 0 1px 0","width":"80%","borderStyle":"solid","height":"64px"}' class="form-item layui-form-text">
+					<label v-if="true" :style='{"padding":"0 10px","boxShadow":"0 0 0px rgba(255,0,0,0)","borderColor":"rgba(0,0,0,0)","backgroundColor":"transparent","color":"#333","borderRadius":"0","textAlign":"right","borderWidth":"0","width":"84px","fontSize":"16px","borderStyle":"solid"}' class="form-label">学生姓名：</label>
+					<input :style='{"padding":"0 10px","boxShadow":"0 0 6px rgba(0,0,0,.5)","borderColor":"#ccc","backgroundColor":"#fff","color":"#333","borderRadius":"8px","textAlign":"left","borderWidth":"0","width":"180px","fontSize":"14px","borderStyle":"solid","height":"44px"}' type="text" id="xueshengxingming" name="xueshengxingming" placeholder="请输入学生姓名" autocomplete="off" class="layui-input">
+				</div>
+				<div :style='{"padding":"0","boxShadow":"0 0 6px rgba(255,0,0,0)","margin":"0 auto","borderColor":"rgba(160, 133, 133, 1)","backgroundColor":"rgba(204, 187, 187, 1)","borderRadius":"20px","borderWidth":"0 0 1px 0","width":"80%","borderStyle":"solid","height":"64px"}' class="form-item layui-form-text">
+					<label v-if="true" :style='{"padding":"0 10px","boxShadow":"0 0 0px rgba(255,0,0,0)","borderColor":"rgba(0,0,0,0)","backgroundColor":"transparent","color":"#333","borderRadius":"0","textAlign":"right","borderWidth":"0","width":"84px","fontSize":"16px","borderStyle":"solid"}' class="form-label">手机号码：</label>
+					<input :style='{"padding":"0 10px","boxShadow":"0 0 6px rgba(0,0,0,.5)","borderColor":"#ccc","backgroundColor":"#fff","color":"#333","borderRadius":"8px","textAlign":"left","borderWidth":"0","width":"180px","fontSize":"14px","borderStyle":"solid","height":"44px"}' type="text" id="shoujihaoma" name="shoujihaoma" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+				</div>
+				<div :style='{"padding":"0","boxShadow":"0 0 6px rgba(255,0,0,0)","margin":"0 auto","borderColor":"rgba(160, 133, 133, 1)","backgroundColor":"rgba(204, 187, 187, 1)","borderRadius":"20px","borderWidth":"0 0 1px 0","width":"80%","borderStyle":"solid","height":"64px"}' class="form-item layui-form-text">
+					<label v-if="true" :style='{"padding":"0 10px","boxShadow":"0 0 0px rgba(255,0,0,0)","borderColor":"rgba(0,0,0,0)","backgroundColor":"transparent","color":"#333","borderRadius":"0","textAlign":"right","borderWidth":"0","width":"84px","fontSize":"16px","borderStyle":"solid"}' class="form-label">邮箱：</label>
+					<input :style='{"padding":"0 10px","boxShadow":"0 0 6px rgba(0,0,0,.5)","borderColor":"#ccc","backgroundColor":"#fff","color":"#333","borderRadius":"8px","textAlign":"left","borderWidth":"0","width":"180px","fontSize":"14px","borderStyle":"solid","height":"44px"}' type="text" id="youxiang" name="youxiang" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+				</div>
+				<button :style='{"padding":"0 10px","boxShadow":"0 0 0px rgba(255,0,0,.5)","margin":"10px auto","borderColor":"rgba(153, 204, 0, 1)","backgroundColor":"rgba(153, 204, 0, 1)","color":"#fff","borderRadius":"8px","borderWidth":"2px","width":"60%","fontSize":"14px","borderStyle":"solid","height":"44px"}' class="layui-btn layui-btn-fluid layui-btn-danger btn-submit" lay-submit lay-filter="register" style="width: 280px;">注册</button>
+            	<p :style='{"color":"#999","textAlign":"center","fontSize":"12px"}' class="txt"><a href="javascript:window.location.href='../login/login.html'">已有账号登录</a></p>
+			</form>
+		</div>
+
+		<script src="../../layui/layui.js"></script>
+		<script src="../../js/vue.js"></script>
+		<!-- 组件配置信息 -->
+		<script src="../../js/config.js"></script>
+		<!-- 扩展插件配置信息 -->
+		<script src="../../modules/config.js"></script>
+		<!-- 工具方法 -->
+		<script src="../../js/utils.js"></script>
+		<!-- 校验格式工具类 -->
+		<script src="../../js/validate.js"></script>
+
+		<script>
+			var vue = new Vue({
+			  el: '#app',
+			  data: {
+			    
+			  },
+			  methods: {
+			    
+			  }
+			});
+			
+			layui.use(['layer', 'element', 'carousel', 'form', 'http', 'jquery'], function() {
+				var layer = layui.layer;
+				var element = layui.element;
+				var carousel = layui.carousel;
+				var form = layui.form;
+				var http = layui.http;
+				var jquery = layui.jquery;
+
+				var tablename = http.getParam('tablename');
+								
+				// 注册
+				form.on('submit(register)', function(data) {
+					data = data.field;
+                    					                    if(!data.xueshenghao){
+                        layer.msg('学生号不能为空', {
+							time: 2000,
+							icon: 5
+						});
+                        return false
+                    }
+                                                                                                                                                                                    					                    if(!data.mima){
+                        layer.msg('密码不能为空', {
+							time: 2000,
+							icon: 5
+						});
+                        return false
+                    }
+                                                                                                                                                                                    					                    if(!data.xueshengxingming){
+                        layer.msg('学生姓名不能为空', {
+							time: 2000,
+							icon: 5
+						});
+                        return false
+                    }
+                                                                                                                                                                                    					                                                                                                                                                                					                                                                                                                                                                					                                                                                if(!isMobile(data.shoujihaoma)){
+                        layer.msg('手机号码应输入手机格式', {
+							time: 2000,
+							icon: 5
+						});
+                        return false
+                    }
+                                                                                                                        					                                                                                                                                                                                    http.requestJson(tablename + '/register', 'post', data, function(res) {
+						layer.msg('注册成功', {
+							time: 2000,
+							icon: 6
+						},function(){
+							// 路径访问设置
+							window.location.href = '../login/login.html';
+						});
+					});
+					return false
+				});
+			});
+		</script>
+	</body>
+</html>

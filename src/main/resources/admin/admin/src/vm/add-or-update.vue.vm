@@ -1,0 +1,309 @@
+<template>
+  <div>
+    <el-form
+      class="detail-form-content"
+      ref="ruleForm"
+      :model="ruleForm"
+      :rules="rules"
+      label-width="80px"
+    >
+        #foreach($column in $columns)
+          #if($column.type == "日")
+            <el-form-item label="${column.comments}" prop="${column.columnName}">
+                <el-date-picker
+                    format="yyyy 年 MM 月 dd 日"
+                    value-format="yyyy-MM-dd HH:mm:ss"
+                    v-model="ruleForm.${column.columnName}" 
+                    type="date"
+                    placeholder="${column.comments}">
+                </el-date-picker> 
+            </el-form-item>
+          #elseif( $column.type == "下" )
+            <el-form-item label="${column.comments}" prop="${column.columnName}">
+                <el-select v-model="ruleForm.${column.columnName}" placeholder="请选择${column.comments}">
+                  <el-option
+                      v-for="(item,index) in ${column.columnName}Options"
+                      v-bind:key="index"
+                      :label="item"
+                      :value="item">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+          #elseif($column.type=="图")
+            <el-form-item label="${column.comments}" prop="${column.columnName}">
+              <file-upload
+              tip="点击上传${column.comments}"
+              action="file/upload"
+              :limit="3"
+              :multiple="true"
+              :fileUrls="ruleForm.${column.columnName}?ruleForm.${column.columnName}:''"
+              @change="${column.columnName}UploadChange"
+              ></file-upload>
+            </el-form-item>
+           #elseif($column.type=="视" )
+            <el-form-item label="${column.comments}" prop="${column.columnName}">
+              <file-upload
+              tip="点击上传${column.comments}"
+              action="file/upload"
+              :limit="1"
+              :multiple="true"
+              :fileUrls="ruleForm.${column.columnName}?ruleForm.${column.columnName}:''"
+              @change="${column.columnName}UploadChange"
+              ></file-upload>
+            </el-form-item>
+          #elseif($column.type=="多")
+
+          #elseif($column.columnName=="sfsh")
+              
+          #elseif($column.towStep=="是")
+            <el-form-item label="${column.comments}" prop="${column.columnName}">
+              <el-select v-model="ruleForm.${column.columnName}" placeholder="请选择${column.comments}">
+                  <el-option
+                      key="是"
+                      label="是"
+                      value="是">
+                  </el-option>
+                  <el-option
+                      key="否"
+                      label="否"
+                      value="否">
+                  </el-option>
+              </el-select>
+            </el-form-item>
+          #elseif($column.type=="联" && $column.level==1)
+            <el-form-item label="${column.comments}" prop="${column.columnName}">
+              <el-select @change="oneChange" v-model="ruleForm.${column.columnName}" placeholder="请选择${column.comments}">
+                  <el-option v-bind:key="index" v-for="(item,index) in oneOptions" :label="item" :value="item"></el-option>
+              </el-select> 
+            </el-form-item>
+          #elseif($column.type=="联" && $column.level==2)
+            <el-form-item label="${column.comments}" prop="${column.columnName}">
+              <el-select @change="towChange" v-model="ruleForm.${column.columnName}" placeholder="请选择${column.comments}">
+                <el-option v-bind:key="index" v-for="(item,index) in towOptions" :label="item" :value="item"></el-option>
+              </el-select>
+            </el-form-item>
+          #elseif($column.type=="联" && $column.level==3)
+            <el-form-item label="${column.comments}" prop="${column.columnName}">
+              <el-select v-model="ruleForm.${column.columnName}" placeholder="请选择${column.comments}">
+                  <el-option v-bind:key="index" v-for="(item,index) in threeOptions" :label="item" :value="item"></el-option>
+              </el-select>
+            </el-form-item>
+          #elseif($column.columnName=='reversetime')
+            <el-form-item label="倒计结束" prop="reversetime">
+              <el-date-picker
+                  format="yyyy 年 MM 月 dd 日"
+                  value-format="yyyy-MM-dd HH:mm:ss"
+                  v-model="ruleForm.reversetime" 
+                  type="date"
+                  placeholder="倒计结束">
+              </el-date-picker>
+            </el-form-item>
+          #else
+            <el-form-item label="${column.comments}" prop="${column.columnName}">
+              <el-input v-model="ruleForm.${column.columnName}" 
+                  placeholder="${column.comments}" clearable></el-input>
+            </el-form-item>
+          #end
+        #end
+        #foreach($column in $columns)
+          #if($column.columnName != $pk.columnName)
+            #if($column.type=="多")
+              <el-form-item label="${column.comments}" prop="${column.columnName}">
+                <editor 
+                    v-model="ruleForm.${column.columnName}" 
+                    class="editor" 
+                    action="file/upload">
+                </editor>
+              </el-form-item>
+            #end
+          #end
+        #end
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">提交</el-button>
+        <el-button @click="back()">取消</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+</template>
+<script>
+import { isNumber,isIntNumer } from "@/utils/validate";
+export default {
+  data() {
+    var validateNumber = (rule, value, callback) => {
+      if(!value){
+        callback();
+      } else if (!isNumber(value)) {
+        callback(new Error("请输入数字"));
+      } else {
+        callback();
+      }
+    };
+    var validateIntNumber = (rule, value, callback) => {
+      if(!value){
+        callback();
+      } else if (!isIntNumer(value)) {
+        callback(new Error("请输入整数"));
+      } else {
+        callback();
+      }
+    };
+    return {
+      ruleForm: {},
+      #foreach($column in $columns)
+        #if($column.type=="联" && $column.level==1)
+          oneOptions:[],
+        #elseif($column.type=="联" && $column.level==2)
+          towOptions:[],
+        #elseif($column.type=="联" && $column.level==3)
+          threeOptions:[],
+        #elseif( $column.type == "下" )
+          ${column.columnName}Options: [],
+        #end
+      #end
+      rules: {
+        #foreach($column in $columns)
+          ${column.columnName}: [
+            #if($column.isNullable == "否")
+                { required: true, message: '${column.comments}不能为空', trigger: 'blur' },
+            #end
+            #if($column.formatValidation=="数")
+                { validator: validateIntNumber, trigger: 'blur' },
+            #end
+            #if($column.formatValidation=="浮")
+                { validator: validateNumber, trigger: 'blur' },
+            #end
+          ],
+        #end
+      }
+    };
+  },
+  props: ["parent"],
+  methods: {
+    // 初始化
+    init(id) {
+      if (id) {
+        this.info(id);
+      }
+      #if($tableName!='defaultuser')
+        #foreach($column in $columns)
+          #if($column.type=="联" && $column.level==1)
+            #[[this.$http({]]#
+              url: `option/${tableName}/${column.columnName}?level=1`,
+              method: "get"
+            }).then(({ data }) => {
+              if (data && data.code === 0) {
+                this.oneOptions = data.data;
+                this.towOptions = [];
+                this.threeOptions = [];
+              } else {
+                #[[this.$message.error(data.msg);]]#
+              }
+            });
+          #elseif( $column.type == "下" )
+            #[[this.$http({]]#
+              url: `option/${column.refTable}/${column.refColumn}`,
+              method: "get"
+            }).then(({ data }) => {
+              if (data && data.code === 0) {
+                this. ${column.columnName}Options = data.data;
+              } else {
+                #[[this.$message.error(data.msg);]]#
+              }
+            });
+          #end
+        #end
+      #end
+    },
+    #foreach($column in $columns)
+      #if($column.type=="联" && $column.level==1)
+         #set($oneColumn = $column.columnName)
+      #end
+      #if($column.type=="联" && $column.level==2)
+        #set($twoColumn = $column.columnName)
+        oneChange(){
+          #[[this.$http({]]#
+            url: `option/${tableName}/${column.columnName}?level=2&parent=` + this.ruleForm.${oneColumn},
+            method: "get"
+          }).then(({ data }) => {
+            if (data && data.code === 0) {
+              this.twoOptions = data.data;
+              this.threeOptions = [];
+            } else {
+              #[[this.$message.error(data.msg);]]#
+            }
+          });
+        },
+      #end
+      #if($column.type=="联" && $column.level==3)
+        twoChange(){
+          #[[this.$http({]]#
+            url: `option/${tableName}/${column.columnName}?level=3&parent=` + this.ruleForm.${twoColumn},
+            method: "get"
+          }).then(({ data }) => {
+            if (data && data.code === 0) {
+              this.twoOptions = data.data;
+              this.threeOptions = [];
+            } else {
+              #[[this.$message.error(data.msg);]]#
+            }
+          });
+        },
+      #end
+    #end
+    info(id) {
+      #[[this.$http({]]#
+        url: `${tableName}/info/#[[${id}]]#`,
+        method: "get"
+      }).then(({ data }) => {
+        if (data && data.code === 0) {
+          this.ruleForm = data.data;
+        } else {
+          #[[this.$message.error(data.msg);]]#
+        }
+      });
+    },
+    // 提交
+    onSubmit() {
+       #[[this.$refs["ruleForm"].validate(valid => {]]#
+        if (valid) {
+          #[[this.$http({]]#
+            url: `${tableName}/#[[${!this.ruleForm.id]]# ? "save" : "update"}`,
+            method: "post",
+            data: this.ruleForm
+          }).then(({ data }) => {
+            if (data && data.code === 0) {
+              #[[this.$message({]]#
+                message: "操作成功",
+                type: "success",
+                duration: 1500,
+                onClose: () => {
+                  this.parent.showFlag = false;
+                  this.parent.search();
+                }
+              });
+            } else {
+              #[[this.$message.error(data.msg);]]#
+            }
+          });
+        }
+      });
+    },
+    // 返回
+    back() {
+      this.parent.showFlag = false;
+    },
+    #foreach($column in $columns)
+        #if($column.type=="图" || $column.type=="视" )
+            ${column.columnName}UploadChange(fileUrls) {
+                this.ruleForm.${column.columnName} = fileUrls;
+            },
+        #end
+    #end
+  }
+};
+</script>
+<style lang="scss" scoped>
+.editor{
+  height: 500px;
+}
+</style>
